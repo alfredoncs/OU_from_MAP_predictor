@@ -16,8 +16,8 @@ SELECT
   , case -- fixing age >89 to 93
                 WHEN p.age LIKE '%89%' then '93' 
                 ELSE p.age end AS age_fixed
-  , p.admissionheight as height
-  , p.admissionweight as weight
+  , p.admissionheight AS height
+  , p.admissionweight AS weight
   , p.ethnicity
   , p.hospitaladmityear
   , p.hospitaladmitsource
@@ -71,15 +71,15 @@ LEFT JOIN sofa3others others
 LEFT JOIN charlson_score ch
   ON p.patientunitstayid = ch.patientunitstayid
 LEFT JOIN oasis o
-     ON p.patientunitstayid = o.patientunitstayid
+  ON p.patientunitstayid = o.patientunitstayid
 LEFT JOIN eicu_crd.hospital h
   ON  p.hospitalid = h.hospitalid
 WHERE p.apacheadmissiondx ILIKE '%sepsis%'
   AND s.readmit = 0
   AND p.age NOT IN ( '0', '1','2','3','4','5','6','7','8','9','10','11','12','13','14','15')
   AND a.actualicumortality IS NOT NULL
-  AND p.admissionheight IS NOT null
- AND  p.admissionweight IS NOT  null
+  AND p.admissionheight IS NOT NULL
+  AND  p.admissionweight IS NOT  NULL
 ORDER BY p.patientunitstayid
 )
 SELECT t1.*
